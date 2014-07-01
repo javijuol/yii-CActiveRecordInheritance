@@ -4,7 +4,7 @@
  *
  * @author Javier Juan <javijuol@gmail.com>
  * @link http://www.yiiframework.com/
- * @version 0.1
+ * @version 0.2
  * @package extensions\CActiveRecordInheritance
  *
  */
@@ -98,6 +98,8 @@ class CActiveRecordInheritance extends CActiveRecordBehavior
      * save them.
      *
      * @param CEvent $event
+     *
+     * @return bool
      */
     public function beforeFind($event)
     {
@@ -105,7 +107,7 @@ class CActiveRecordInheritance extends CActiveRecordBehavior
 
         if(isset(self::$_m[get_class($this->parent).'->'.get_class($this->child)]))
             self::$tmp = self::$_m[get_class($this->parent).'->'.get_class($this->child)];
-        parent::beforeFind($event);
+        return parent::beforeFind($event);
     }
 
     /**
@@ -127,12 +129,31 @@ class CActiveRecordInheritance extends CActiveRecordBehavior
     }
 
     /**
+     * Validate the parent model before the child model.
+     *
+     * @param CEvent $event
+     *
+     * @return bool
+     */
+    public function beforeValidate($event)
+    {
+        if(method_exists($this->owner,'beforeAfterFind')) $this->owner->beforeBeforeValidate(); // Fallback
+
+        if(!is_null($this->parent)&&!is_null($this->child)){
+            if(!$this->parent->validate()) return false;
+        }
+        return parent::beforeValidate($event);
+    }
+
+    /**
      * Fill the parent object with the attribute values extended from the parent, as they
      * have not been setted directly in the parent object but it sets in the child extended
      * attributes from the parent.
      * Finally, it saves parent changes before the child is saved.
      *
      * @param CModelEvent $event
+     *
+     * @return bool
      *
      * @throws CException
      */
