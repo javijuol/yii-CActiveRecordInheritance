@@ -21,21 +21,14 @@ yii-CActiveRecordInheritance
  
  For example, if we set a parent Car and possible children SportCar and FamilyCar:
  
-  =========
- |   Car   |
- |=========|
- |- id     |
- |- name   |
- |_________|
-  ========= 
- | SportCar|
- |=========|
- |- car_id |
- |- power  |
- |_________|
-  ========= 
- |FamilyCar|
- |=========|
- |- car_id |
- |- seats  |
- |_________|
+ Car:
+ - id
+ - name
+
+ SportCar
+ - car_id
+ - power
+ 
+ FamilyCar:
+ - car_id
+ - seats
