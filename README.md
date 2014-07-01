@@ -34,7 +34,7 @@ yii-CActiveRecordInheritance
  - seats
 
 Have to be careful with duplicated names, because this behavior can't
-distinguis between ambiguos columns in parent and child models.
+distinguish between ambiguos columns in parent and child models.
 The table alias for the parent model will be 'p', and the table alias
 for the child model still remains 't'.
 
