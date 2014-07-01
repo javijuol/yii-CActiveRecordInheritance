@@ -25,10 +25,10 @@ yii-CActiveRecordInheritance
  - id
  - name
 
- SportCar
+ SportCar:
  - car_id
  - power
- 
+
  FamilyCar:
  - car_id
  - seats
