@@ -42,7 +42,7 @@ Some events have been overwritten by this behavior so it's not possible
 to use them in the child model context. Even though, there is a fallback
 to mitigate this issue, implementing a 'beforeEvent' method in the child.
 The left method is the method overwritted, and the right one is the new
-method to implement in the children models if they are needed.
+method to implement in the child models if they are needed.
  - afterConstruct => beforeAfterConstruct
  - beforeFind     => beforeBeforeFind
  - afterFind      => beforeAfterFind
