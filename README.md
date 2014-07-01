@@ -50,3 +50,6 @@ method to implement in the child models if they are needed.
 They will be executed just before the 'behavior overwriting method', and
 the MUST NOT return anything, as regular event should return parent::event
 to avoid framework workflow problems.
+
+TODO list:
+ - makes a delete cascade functionality
