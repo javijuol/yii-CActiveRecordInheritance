@@ -3,8 +3,8 @@
  * CActiveRecordInheritance class file.
  *
  * @author Javier Juan <javijuol@gmail.com>
- * @link http://www.yiiframework.com/
- * @version 0.2
+ * @link https://github.com/javijuol/yii-CActiveRecordInheritance
+ * @version 0.1
  * @package extensions\CActiveRecordInheritance
  *
  */
