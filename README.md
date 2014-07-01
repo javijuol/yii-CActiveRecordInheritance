@@ -39,7 +39,7 @@ The table alias for the parent model will be 'p', and the table alias
 for the child model still remains 't'.
 
 Some events have been overwritten by this behavior so it's not possible
-to use them in the child model context. Eventhough, there is a fallback
+to use them in the child model context. Even though, there is a fallback
 to mitigate this issue, implementing a 'beforeEvent' method in the child.
 The left method is the method overwritted, and the right one is the new
 method to implement in the children models if they are needed.
