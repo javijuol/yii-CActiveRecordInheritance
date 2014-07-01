@@ -32,3 +32,21 @@ yii-CActiveRecordInheritance
  FamilyCar:
  - car_id
  - seats
+
+Have to be careful with duplicated names, because this behavior can't
+distinguis between ambiguos columns in parent and child models.
+The table alias for the parent model will be 'p', and the table alias
+for the child model still remains 't'.
+
+Some events have been overwritten by this behavior so it's not possible
+to use them in the child model context. Eventhough, there is a fallback
+to mitigate this issue, implementing a 'beforeEvent' method in the child.
+The left method is the method overwritted, and the right one is the new
+method to implement in the children models if they are needed.
+ - afterConstruct => beforeAfterConstruct
+ - beforeFind     => beforeBeforeFind
+ - afterFind      => beforeAfterFind
+ - beforeSave     => beforeBeforeSave
+They will be executed just before the 'behavior overwriting method', and
+the MUST NOT return anything, as regular event should return parent::event
+to avoid framework workflow problems.
