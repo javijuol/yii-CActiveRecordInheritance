@@ -15,11 +15,11 @@ yii-CActiveRecordInheritance
            ));
        }
  
- 
-  ========= BEGIN EXAMPLE ==========
   class Car extends CActiveRecord {
-   // property integer $id
-   // property string  $name
+   /**
+    * @property integer $id
+    * @property string  $name
+   */
        ...
   }
  
