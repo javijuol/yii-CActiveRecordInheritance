@@ -71,8 +71,6 @@
  *
  */
 
-
-
 class CActiveRecordInheritance extends CActiveRecordBehavior
 {
     public $parent, $child;
@@ -98,6 +96,7 @@ class CActiveRecordInheritance extends CActiveRecordBehavior
      * another instance and that's why the object variables won't remain, so
      * in order to get the objects instantiated after the constructor it
      * save them.
+     *
      * @param CEvent $event
      */
     public function beforeFind($event)
@@ -112,6 +111,7 @@ class CActiveRecordInheritance extends CActiveRecordBehavior
     /**
      * Load the parent and child objects after the find() method, so it can keep track of
      * the changes it makes at the 'scope time'.
+     *
      * @param CEvent $event
      */
     public function afterFind($event)
@@ -131,7 +131,10 @@ class CActiveRecordInheritance extends CActiveRecordBehavior
      * have not been setted directly in the parent object but it sets in the child extended
      * attributes from the parent.
      * Finally, it saves parent changes before the child is saved.
+     *
      * @param CModelEvent $event
+     *
+     * @throws CException
      */
     public function beforeSave($event)
     {
@@ -148,7 +151,8 @@ class CActiveRecordInheritance extends CActiveRecordBehavior
                 }
             }
             $this->parent->isNewRecord = $this->owner->isNewRecord;
-            if(!$this->parent->save(false)) die(var_dump($this->parent->errors));
+            if(!$this->parent->save(false))
+                throw new CException('The parent model has not been saved.');
             $this->owner->primaryKey = $this->parent->primaryKey;
         }
         return parent::beforeSave($event);
@@ -156,6 +160,7 @@ class CActiveRecordInheritance extends CActiveRecordBehavior
 
     /**
      * Load extended attributes in the child model after save changes occur
+     *
      * @param CModelEvent $event
      */
     public function afterSave($event)
@@ -176,7 +181,7 @@ class CActiveRecordInheritance extends CActiveRecordBehavior
      * Scope that joins the extended model (which must be an AR too)
      * and also mix the rules, relations and attributes in one single model.
      * Have to be careful with duplicated names, because this behavior can't
-     * distinguis between ambiguos columns in parent and child models.
+     * distinguish between ambiguos columns in parent and child models.
      * The child model should have its PK not autoincremental, cause it will
      * be setted with the same as its parent.
      * The table alias for the parent model will be 'p', and the table alias
@@ -210,6 +215,7 @@ class CActiveRecordInheritance extends CActiveRecordBehavior
             $this->child->$attr = $val;
 
         self::$_m = array(get_class($this->parent).'->'.get_class($this->child)=>array('parent'=>$this->parent,'child'=>$this->child));
+
         return $this->child;
     }
 }
