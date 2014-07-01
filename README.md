@@ -15,46 +15,14 @@ yii-CActiveRecordInheritance
            ));
        }
  
-  class Car extends CActiveRecord {
-   /**
-    * @property integer $id
-    * @property string  $name
-   */
-       ...
-  }
+ The parent model should have a pk column with an auto-incremental value,
+ and the child model should have a pk with another name different from the
+ parent and not auto-incremental value.
  
-  class SportCar extends Car {
-   // property integer $car_id
-   // property number  $power
-       ...
+ For example, if we set a parent Car and possible children SportCar and FamilyCar:
  
-       public function behaviors()
-       {
-           return array( 'CActiveRecordInheritance' => array(
-               'class' => 'application.extensions.CActiveRecordInheritance'
-           ));
-       }
-  }
- 
-  class FamilyCar extends Car {
-   // property integer $car_id
-   // property integer $seats
-       ...
- 
-       public function behaviors()
-       {
-           return array( 'CActiveRecordInheritance' => array(
-               'class' => 'application.extensions.CActiveRecordInheritance'
-           ));
-       }
-  }
- 
- 
-  $sportCar = new SportCar();
-  $sportCar->name  = 'FastCar';
-  $sportCar->power = 120;
-  $sportCar->save();
- 
-  $familyCars = FamilyCar::model()->findAllByAttributes(array('seats'=>8));
- 
-  ========= END EXAMPLE ==========
+ =======        ========        ========
+   Car          SportCar        FamilyCar
+ =======        ========        ========
+ - id           - car_id        - car_id
+ - name         - power         - seats
